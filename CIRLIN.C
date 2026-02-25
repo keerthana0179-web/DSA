@@ -8,7 +8,7 @@ struct node
 };
 struct node *head=NULL;
 
-void insert_at_beginning(int data)
+void insert_at_end(int data)
 {
  struct node *newnode,*temp;
  newnode=(struct node*)malloc(sizeof(struct node));
@@ -25,9 +25,33 @@ void insert_at_beginning(int data)
   {
    temp=temp->next;
   }
-  newnode->next=head;
   temp->next=newnode;
-  head=newnode;
+  newnode->next=head;
+ }
+}
+void delete_at_beginning()
+{
+ struct node *temp,*last;
+ if(head==NULL)
+ {
+  printf("List is empty\n");
+ }
+ else if(head->next==head)
+ {
+  free(head);
+  head=NULL;
+ }
+ else
+ {
+  last=head;
+  while(last->next!=head)
+  {
+   last=last->next;
+  }
+  temp=head;
+  head=head->next;
+  last->next=head;
+  free(temp);
  }
 }
 void traverse()
@@ -52,9 +76,11 @@ void traverse()
 void main()
 {
  clrscr();
- insert_at_beginning(10);
- insert_at_beginning(20);
- insert_at_beginning(30);
+ insert_at_end(10);
+ insert_at_end(20);
+ insert_at_end(30);
+ traverse();
+ delete_at_beginning();
  traverse();
  getch();
 }
